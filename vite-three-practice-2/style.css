@@ -2,7 +2,6 @@
   font-family: Orbitron;
   src: url('Orbitron-VariableFont_wght.ttf');
 }
-
 canvas {
   position: fixed;
   top: 0;
@@ -24,8 +23,8 @@ body {
   height: 500px;
   background-color: #0d0d0f;
   border-style: solid;
-  border-color: lightsteelblue;
-  box-shadow: 0 0 75px 10px lightsteelblue;
+  border-color: white;
+  box-shadow: 0 0 50px 15px white;
 
   opacity: 0; /* Start with 0 opacity */
   transition: opacity 0.5s ease; /* Smooth transition over 0.5s */
@@ -74,4 +73,8 @@ p {
   border-style: solid;
   border-color: lightsteelblue;
   box-shadow: 0 0 10px 0.5px lightsteelblue;
+}
+#close-btn:hover {
+  border-color: white;
+  box-shadow: 0 0 0.5px 1px white;
 }

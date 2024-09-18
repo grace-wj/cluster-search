@@ -251,6 +251,21 @@ sun.isPlanet = true;
 
 scene.add(sun);
 
+// Create a new OutlinePass specifically for the sun
+const sunOutlinePass = new OutlinePass(new THREE.Vector2(window.innerWidth, window.innerHeight), scene, camera);
+composer.addPass(sunOutlinePass);
+
+// Add the sun to the sunOutlinePass
+sunOutlinePass.selectedObjects = [sun];
+
+// Configure the outline appearance for the sun
+sunOutlinePass.edgeStrength = 5; // Intensity of the outline
+sunOutlinePass.edgeGlow = 2;     // Soft glow effect
+sunOutlinePass.edgeThickness = 10.0; // Thickness of the outline
+sunOutlinePass.pulsePeriod = 5;     // No pulsing, keep it constant
+sunOutlinePass.visibleEdgeColor.set('#f7a51a'); // White outline
+sunOutlinePass.hiddenEdgeColor.set('#000000');  // No hidden edges
+
 
 /* add background texture */
 const spaceTexture = new THREE.TextureLoader().load('night-sky.jpeg');
