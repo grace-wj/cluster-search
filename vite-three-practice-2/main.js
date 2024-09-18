@@ -36,7 +36,9 @@ function onClick(event) {
   if (intersects.length > 0) {
     // Handle the click event
     const clickedObject = intersects[0].object;
-    animateCameraToPlanet(clickedObject);
+    if (clickedObject.isPlanet) {
+      animateCameraToPlanet(clickedObject);
+    }
   }
 }
 
@@ -133,6 +135,9 @@ function addStar() {
 
   star.position.set(x, y, z);
   star.rotation.set(x, y, z);
+
+  star.isPlanet = false; // mark as non-interactive
+
   scene.add(star);
 }
 
@@ -148,6 +153,9 @@ function addMoon() {
 
   moon.position.set(x, y, z);
   moon.rotation.set(x, y, z);
+
+  moon.isPlanet = true;
+
   scene.add(moon);
 }
 
@@ -159,6 +167,9 @@ const earthMat = new THREE.MeshBasicMaterial({map: earthTex})
 const earth = new THREE.Mesh(earthGeo, earthMat);
 const [earthX, earthY, earthZ] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
 earth.position.set(earthX, earthY, earthZ);
+
+earth.isPlanet = true;
+
 scene.add(earth);
 
 /* add mars */
@@ -169,6 +180,9 @@ const marsMat = new THREE.MeshBasicMaterial({map: marsTex})
 const mars = new THREE.Mesh(marsGeo, marsMat);
 const [marsX, marsY, marsZ] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
 mars.position.set(marsX, marsY, marsZ);
+
+mars.isPlanet = true;
+
 scene.add(mars);
 
 /* add sun */
@@ -179,6 +193,9 @@ const sunMat = new THREE.MeshBasicMaterial({map: sunTex})
 const sun = new THREE.Mesh(sunGeo, sunMat);
 const [sunX, sunY, sunZ] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
 mars.position.set(sunX, sunY, sunZ);
+
+sun.isPlanet = true;
+
 scene.add(sun);
 
 
@@ -195,6 +212,7 @@ Array(10).fill().forEach(addMoon);
 //const gridHelper = new THREE.GridHelper(200, 50);
 //scene.add(gridHelper);
 const controls = new OrbitControls(camera, renderer.domElement);
+controls.maxDistance = 80; // Maximum zoom-out distance
 
 /* animate everything */
 function animate() {

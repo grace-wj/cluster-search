@@ -1,7 +1,18 @@
+@font-face { 
+  font-family: Orbitron;
+  src: url('Orbitron-VariableFont_wght.ttf');
+}
+
 canvas {
   position: fixed;
   top: 0;
   left: 0;
+}
+body {
+  font-family: "Orbitron", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
 }
 #sidebar {
   position: fixed;
@@ -14,7 +25,7 @@ canvas {
   background-color: #0d0d0f;
   border-style: solid;
   border-color: lightsteelblue;
-  box-shadow: 0 0 75px 2px lightsteelblue;
+  box-shadow: 0 0 75px 10px lightsteelblue;
 
   opacity: 0; /* Start with 0 opacity */
   transition: opacity 0.5s ease; /* Smooth transition over 0.5s */
@@ -38,10 +49,12 @@ canvas {
 }
 
 h2 {
-  font-size: 3rem;
+  font-size: 2.5rem;
+  font-weight: 800;
   color: white;
 }
 h3 {
+  font-family: "Orbitron", sans-serif;
   font-size: 2rem;
   color: white;
 }
@@ -60,4 +73,5 @@ p {
   background-color: #0d0d0f;
   border-style: solid;
   border-color: lightsteelblue;
+  box-shadow: 0 0 10px 0.5px lightsteelblue;
 }
