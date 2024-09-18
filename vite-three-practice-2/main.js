@@ -3,6 +3,11 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import gsap from 'gsap';
 
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass.js';
+
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.set(0, 0, 50); 
@@ -15,14 +20,62 @@ renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.render(scene, camera);
 
+// Set up the composer for post-processing effects
+const composer = new EffectComposer(renderer);
+
+// Add the basic render pass
+const renderPass = new RenderPass(scene, camera);
+composer.addPass(renderPass);
+
+// Set up OutlinePass
+const outlinePass = new OutlinePass(
+    new THREE.Vector2(window.innerWidth, window.innerHeight),
+    scene,
+    camera
+);
+composer.addPass(outlinePass);
+
+// Change the outline style (optional)
+outlinePass.edgeStrength = 5;   // Outline thickness
+outlinePass.edgeGlow = 1;       // How much the outline glows
+outlinePass.edgeThickness = 2;  // Edge size
+outlinePass.pulsePeriod = 0;    // Speed of glow pulse effect, set to 0 for no pulsing
+outlinePass.visibleEdgeColor.set('#ffffff');  // Color of the visible edges
+outlinePass.hiddenEdgeColor.set('#000000');   // Color of hidden edges
+
 /* add raycaster */
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
-/* add click event listener */
-window.addEventListener('click', onClick, false);
+/* add hover event listener */
+window.addEventListener('mousemove', onHover, false);
 
-function onClick(event) {
+function onHover(event) {
+  // Convert mouse position to normalized device coordinates
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+  // Update the raycaster with the camera and mouse position
+  raycaster.setFromCamera(mouse, camera);
+
+  // Calculate objects intersecting the raycaster
+  const intersects = raycaster.intersectObjects(scene.children);
+
+  if (intersects.length > 0) {
+    const hoveredObject = intersects[0].object;
+    if (hoveredObject.isPlanet) {
+      outlinePass.selectedObjects = [hoveredObject]; // Highlight the hovered planet by adding it to OutlinePass's selectedObjects array
+    }
+  } else {
+    // Clear the outline when not hovering over any planet
+    outlinePass.selectedObjects = [];
+  }
+}
+
+/* add click event listener */
+window.addEventListener('dblclick', onDoubleClick, false);
+
+function onDoubleClick(event) {
   // Convert mouse position to normalized device coordinates
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
@@ -229,7 +282,8 @@ function animate() {
   mars.rotation.x += 0.001;
   mars.rotation.y += 0.0025;
 
-  renderer.render(scene, camera);
+  composer.render();
+  //renderer.render(scene, camera);
   controls.update();
 }
 animate();
