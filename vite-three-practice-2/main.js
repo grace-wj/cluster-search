@@ -184,7 +184,7 @@ function addStar() {
   const starMat = new THREE.MeshBasicMaterial({color: 0xFFFFFF, wireframe: true});
   const star = new THREE.Mesh(starGeo, starMat);
 
-  const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
+  const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(150));
 
   star.position.set(x, y, z);
   star.rotation.set(x, y, z);
@@ -272,7 +272,7 @@ const spaceTexture = new THREE.TextureLoader().load('night-sky.jpeg');
 spaceTexture.colorSpace = THREE.SRGBColorSpace;
 scene.background = spaceTexture;
 
-Array(200).fill().forEach(addStar);
+Array(250).fill().forEach(addStar);
 Array(10).fill().forEach(addMoon);
 
 
@@ -280,7 +280,7 @@ Array(10).fill().forEach(addMoon);
 //const gridHelper = new THREE.GridHelper(200, 50);
 //scene.add(gridHelper);
 const controls = new OrbitControls(camera, renderer.domElement);
-controls.maxDistance = 80; // Maximum zoom-out distance
+controls.maxDistance = 100; // Maximum zoom-out distance
 
 /* animate everything */
 function animate() {
