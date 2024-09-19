@@ -184,7 +184,7 @@ function addStar() {
   const starMat = new THREE.MeshBasicMaterial({color: 0xFFFFFF, wireframe: true});
   const star = new THREE.Mesh(starGeo, starMat);
 
-  const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(150));
+  const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(200));
 
   star.position.set(x, y, z);
   star.rotation.set(x, y, z);
@@ -272,8 +272,8 @@ const spaceTexture = new THREE.TextureLoader().load('night-sky.jpeg');
 spaceTexture.colorSpace = THREE.SRGBColorSpace;
 scene.background = spaceTexture;
 
-Array(250).fill().forEach(addStar);
-Array(10).fill().forEach(addMoon);
+Array(350).fill().forEach(addStar);
+Array(7).fill().forEach(addMoon);
 
 
 /* add grid helper and controls */
