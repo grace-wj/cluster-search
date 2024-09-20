@@ -62,6 +62,7 @@ function onHover(event) {
   // convert mouse position to normalized device coordinates
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
   raycaster.setFromCamera(mouse, camera); // update the raycaster with the camera and mouse position
   const intersects = raycaster.intersectObjects(scene.children); // calculate objects intersecting the raycaster to find clicked object
 
@@ -80,6 +81,7 @@ function onDoubleClick(event) {
   // Convert mouse position to normalized device coordinates
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
   raycaster.setFromCamera(mouse, camera); // update the raycaster with the camera and mouse position
   const intersects = raycaster.intersectObjects(scene.children); // calculate objects intersecting the raycaster to find clicked object
 
@@ -90,8 +92,8 @@ function onDoubleClick(event) {
     }
   }
 }
-/* to close sidebar, onclick listener/handler on close-btn */
-document.getElementById('close-btn').addEventListener('click', () => { // TODO: figure out why this breaks when sidebar HTML is updated
+/* to close sidebar, onclick listener/handler on exit-btn */
+document.getElementById('exit-btn').addEventListener('click', () => { // TODO: figure out why this breaks when sidebar HTML is updated
   closeSidebar();
   animateCameraToStart();
 });
@@ -116,12 +118,14 @@ function closeSidebar() {
 function updateSidebarContent(object) {
   const sidebarHeader = document.getElementById('sidebar-header');
   const sidebarContent = document.getElementById('sidebar-content');
+  const exitText = document.getElementById('exit-text');
 
   const objectName = object.name;
   const objectContent = planetInfo[objectName];
-  
+
   sidebarHeader.innerHTML = objectName;
   sidebarContent.innerHTML = objectContent;
+  exitText.innerHTML = "Exit";
 }
 
 /* function that moves to initial camera/look position */
@@ -299,6 +303,7 @@ mars.position.copy(validRandomPosition(120));
 planets.push(mars);
 
 mars.isClickable = true;
+mars.name = "Mars";
 
 scene.add(mars);
 
@@ -459,8 +464,6 @@ function animate() {
   earth.rotation.z += 0.001;
 
   sun.rotation.x -= 0.001;
-  sun.rotation.y -= 0.0025;
-  sun.rotation.z -= 0.001;
 
   mars.rotation.x += 0.001;
   mars.rotation.y += 0.0025;

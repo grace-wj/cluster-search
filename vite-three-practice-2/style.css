@@ -67,7 +67,7 @@ p {
   font-size: 1.2rem;
   color: white;
 }
-#close-btn {
+#exit-btn {
   font-size: 3rem;
   position: fixed;
   left: 440px;
@@ -80,7 +80,7 @@ p {
   border-color: lightsteelblue;
   box-shadow: 0 0 10px 0.5px lightsteelblue;
 }
-#close-btn:hover {
+#exit-btn:hover {
   border-color: white;
   box-shadow: 0 0 0.5px 1px white;
 }
