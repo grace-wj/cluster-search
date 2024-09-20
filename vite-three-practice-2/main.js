@@ -18,7 +18,7 @@ const planetInfo = { // sidebar info for each planet
   "Sun": "The sun is the sun." // TODO: add sun sidebar info
 }
 const planets = []; // keep track of planet objects to prevent placement overlaps
-const minDistance = 1; // set a minimum distance between objects
+const minDistance = 25; // set a minimum distance between objects
 
 /* create scene, camera, and renderer */
 const scene = new THREE.Scene();
@@ -199,41 +199,25 @@ function validRandPosition(rangeStart, rangeEnd) {
 }
 /* function to generate a random object position within range */
 function randPositionOpen(range) {
-  // TODO: Implement with single line
-  x = THREE.MathUtils.randFloatSpread(range);
-  y = THREE.MathUtils.randFloatSpread(range);
-  z = THREE.MathUtils.randFloatSpread(range);
+  const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(range));
   return new THREE.Vector3(x, y, z);
 }
 /* function to generate a random object position between rangestart and rangeend */
 function randPositionClosed(rangeStart, rangeEnd) {
-  let x;
-  let y;
-  let z;
-  let validX = false;
-  let validY = false;
-  let validZ = false;
-  while (!validX) {
-    x = THREE.MathUtils.randFloatSpread(rangeEnd);
-    if (Math.abs(x) > rangeStart) {
-      validX = true;
-    }
-  }
-  while (!validY) {
-    y = THREE.MathUtils.randFloatSpread(rangeEnd);
-    if (Math.abs(y) > rangeStart) {
-      validY = true;
-    }
-  }
-  while (!validZ) {
-    z = THREE.MathUtils.randFloatSpread(rangeEnd);
-    if (Math.abs(z) > rangeStart) {
-      validZ = true;
-    }
-  }  
+  const radius = THREE.MathUtils.randFloat(rangeStart, rangeEnd);
+
+  /* generate random spherical coordinates */
+  const theta = Math.random() * Math.PI * 2;
+  const phi = Math.acos(2 * Math.random() - 1);
+
+  /* convert to cartesian coordinates */
+  const x = radius * Math.sin(phi) * Math.cos(theta);
+  const y = radius * Math.sin(phi) * Math.sin(theta);
+  const z = radius * Math.cos(phi);
+
   return new THREE.Vector3(x, y, z);
 }
-/* returns true if position is far enough away from other objects, false otherwise*/
+/* returns true if position is far enough away from other objects, false otherwise */
 function isValid(position) {
   for (const planet of planets) {
     if (position.distanceTo(planet.position) < minDistance) {
