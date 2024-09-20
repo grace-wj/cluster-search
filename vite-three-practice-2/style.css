@@ -18,6 +18,8 @@ body {
   left: 0;
   top: 0;
   padding: 50px;
+  padding-top: 0px;
+  padding-bottom: 115px;
   margin: 100px;
   width: 450px;
   height: 500px;
@@ -35,6 +37,8 @@ body {
   left: 0;
   top: 0;
   padding: 50px;
+  padding-top: 0px;
+  padding-bottom: 115px;
   margin: 100px;
   width: 450px;
   height: 500px;
@@ -49,7 +53,7 @@ body {
 
 h2 {
   font-family: "Orbitron";
-  font-size: 2.5rem;
+  font-size: 4rem;
   font-weight: 800;
   color: white;
 }
@@ -60,11 +64,11 @@ h3 {
 }
 p {
   font-family: "Orbitron";
-  font-size: 1rem;
+  font-size: 1.2rem;
   color: white;
 }
 #close-btn {
-  font-size: larger;
+  font-size: 3rem;
   position: fixed;
   left: 440px;
   top: 530px;
@@ -79,4 +83,7 @@ p {
 #close-btn:hover {
   border-color: white;
   box-shadow: 0 0 0.5px 1px white;
+}
+#sidebar-header {
+  text-align: center;
 }

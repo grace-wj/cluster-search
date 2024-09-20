@@ -7,14 +7,15 @@ import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass.js';
 import gsap from 'gsap';
 
 const planetInfo = { // sidebar info for each planet
-  "mercury": "Mercury, the closest planet to the Sun, might seem scorching hot, but it’s not the warmest—Venus takes that crown. A day on Mercury lasts an incredible 176 Earth days, which is actually longer than its year. Interestingly, despite its proximity to the Sun, Mercury harbors water ice in craters near its poles that are always in shadow.",
-  "venus": "Venus is an oddball in our solar system because it spins in the opposite direction to most planets, meaning the Sun rises in the west and sets in the east. Shrouded in thick clouds of sulfuric acid, its surface reaches temperatures hot enough to melt lead, making it the hottest planet despite not being closest to the Sun. Even more intriguing, a single day on Venus is longer than its year, since it takes more time to complete a full rotation than it does to orbit the Sun.",
-  "earth": "Earth, our home planet, is the only place we know of that supports life, thanks to its perfect balance of water, atmosphere, and temperature. With 71% of its surface covered by oceans, Earth is affectionately known as the \"Blue Planet.\" Its protective atmosphere not only shields us from harmful solar radiation but also keeps the surface temperature just right for life to thrive.",
-  "mars": "Mars is home to Olympus Mons, the tallest volcano in the solar system, which is nearly three times as high as Mount Everest. Known for its signature red hue due to iron oxide, or rust, covering its surface, the \"Red Planet\" is also a fascinating place for exploration. Mars has two small moons, Phobos and Deimos, which scientists believe might actually be captured asteroids.",
-  "jupiter": "Jupiter, the largest planet in our solar system, is so massive that over 1,300 Earths could fit inside it. Its Great Red Spot is an enormous storm that has been swirling for at least 350 years, possibly even longer. With at least 79 moons, including Ganymede—the biggest moon in the solar system—Jupiter offers a whole mini-world of fascinating natural satellites.",
-  "saturn": "Saturn, famous for its stunning rings made of ice and rock, is a gas giant with a unique claim to fame: it's less dense than water, meaning it could float if you had a big enough ocean. Its rings are not solid, but are made up of billions of particles, some as small as dust, others as large as mountains. Saturn's largest moon, Titan, has a thick atmosphere and lakes of liquid methane, making it a prime target for exploration.",
-  "uranus": "Uranus spins on its side, almost perpendicular to its orbit, likely due to a massive collision in its past. Its pale blue color comes from methane gas in its atmosphere, which filters out red light and reflects blue. Discovered in 1781 by William Herschel, Uranus was the first planet to be found with the aid of a telescope, and it also has a faint ring system similar to Saturn’s.",
-  "neptune": "Neptune, known for its deep blue color, boasts the most powerful winds in the solar system, with speeds that can reach up to 1,500 miles per hour. Like Uranus, its blue hue is caused by methane gas in its atmosphere, though its storms are far more intense. Neptune's largest moon, Triton, is unique for its retrograde orbit, which means it moves in the opposite direction of the planet's rotation, a clue that it may have been captured from the Kuiper Belt."
+  "Mercury": "Mercury, the closest planet to the Sun, might seem scorching hot, but it’s not the warmest—Venus takes that crown. A day on Mercury lasts an incredible 176 Earth days, which is actually longer than its year. Interestingly, despite its proximity to the Sun, Mercury harbors water ice in craters near its poles that are always in shadow.",
+  "Venus": "Venus is an oddball in our solar system because it spins in the opposite direction to most planets, meaning the Sun rises in the west and sets in the east. Shrouded in thick clouds of sulfuric acid, its surface reaches temperatures hot enough to melt lead, making it the hottest planet despite not being closest to the Sun. Even more intriguing, a single day on Venus is longer than its year, since it takes more time to complete a full rotation than it does to orbit the Sun.",
+  "Earth": "Earth, our home planet, is the only place we know of that supports life, thanks to its perfect balance of water, atmosphere, and temperature. With 71% of its surface covered by oceans, Earth is affectionately known as the \"Blue Planet.\" Its protective atmosphere not only shields us from harmful solar radiation but also keeps the surface temperature just right for life to thrive.",
+  "Mars": "Mars is home to Olympus Mons, the tallest volcano in the solar system, which is nearly three times as high as Mount Everest. Known for its signature red hue due to iron oxide, or rust, covering its surface, the \"Red Planet\" is also a fascinating place for exploration. Mars has two small moons, Phobos and Deimos, which scientists believe might actually be captured asteroids.",
+  "Jupiter": "Jupiter, the largest planet in our solar system, is so massive that over 1,300 Earths could fit inside it. Its Great Red Spot is an enormous storm that has been swirling for at least 350 years, possibly even longer. With at least 79 moons, including Ganymede—the biggest moon in the solar system—Jupiter offers a whole mini-world of fascinating natural satellites.",
+  "Saturn": "Saturn, famous for its stunning rings made of ice and rock, is a gas giant with a unique claim to fame: it's less dense than water, meaning it could float if you had a big enough ocean. Its rings are not solid, but are made up of billions of particles, some as small as dust, others as large as mountains. Saturn's largest moon, Titan, has a thick atmosphere and lakes of liquid methane, making it a prime target for exploration.",
+  "Uranus": "Uranus spins on its side, almost perpendicular to its orbit, likely due to a massive collision in its past. Its pale blue color comes from methane gas in its atmosphere, which filters out red light and reflects blue. Discovered in 1781 by William Herschel, Uranus was the first planet to be found with the aid of a telescope, and it also has a faint ring system similar to Saturn’s.",
+  "Neptune": "Neptune, known for its deep blue color, boasts the most powerful winds in the solar system, with speeds that can reach up to 1,500 miles per hour. Like Uranus, its blue hue is caused by methane gas in its atmosphere, though its storms are far more intense. Neptune's largest moon, Triton, is unique for its retrograde orbit, which means it moves in the opposite direction of the planet's rotation, a clue that it may have been captured from the Kuiper Belt.",
+  "Sun": "The sun is the sun." // TODO: add sun sidebar info
 }
 const planets = []; // keep track of planet objects to prevent placement overlaps
 const minDistance = 50; // set a minimum distance between objects
@@ -61,9 +62,7 @@ function onHover(event) {
   // convert mouse position to normalized device coordinates
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
   raycaster.setFromCamera(mouse, camera); // update the raycaster with the camera and mouse position
-
   const intersects = raycaster.intersectObjects(scene.children); // calculate objects intersecting the raycaster to find clicked object
 
   if (intersects.length > 0) {
@@ -81,9 +80,7 @@ function onDoubleClick(event) {
   // Convert mouse position to normalized device coordinates
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
   raycaster.setFromCamera(mouse, camera); // update the raycaster with the camera and mouse position
-
   const intersects = raycaster.intersectObjects(scene.children); // calculate objects intersecting the raycaster to find clicked object
 
   if (intersects.length > 0) {
@@ -117,11 +114,14 @@ function closeSidebar() {
 }
 /* function to update the sidebar content for each planet */
 function updateSidebarContent(object) {
-  const sidebar = document.getElementById('sidebar');
-  const objectName = object.name;
-  const content = planetInfo[objectName]; // TODO: case objectName is not found in planetInfo
+  const sidebarHeader = document.getElementById('sidebar-header');
+  const sidebarContent = document.getElementById('sidebar-content');
 
-  sidebar.innerHTML = '<h2>${objectName}</h2><p>${content}</p><button id="close-btn"><h3>Exit</h3></button>'; // TODO: find out correct way to insert variables
+  const objectName = object.name;
+  const objectContent = planetInfo[objectName];
+  
+  sidebarHeader.innerHTML = objectName;
+  sidebarContent.innerHTML = objectContent;
 }
 
 /* function that moves to initial camera/look position */
@@ -226,7 +226,7 @@ sun.position.set(0, 0, 0);
 planets.push(sun);
 
 sun.isClickable = true;
-sun.name = "sun";
+sun.name = "Sun";
 
 // create an outlinepass specifically for the sun
 const sunOutlinePass = new OutlinePass(new THREE.Vector2(window.innerWidth, window.innerHeight), scene, camera);
@@ -254,7 +254,7 @@ mercury.position.copy(validRandomPosition(120));
 planets.push(mercury);
 
 mercury.isClickable = true;
-mercury.name = "mercury";
+mercury.name = "Mercury";
 
 scene.add(mercury);
 
@@ -269,7 +269,7 @@ venus.position.copy(validRandomPosition(120));
 planets.push(venus);
 
 venus.isClickable = true;
-venus.name = "venus";
+venus.name = "Venus";
 
 scene.add(venus);
 
@@ -284,7 +284,7 @@ earth.position.copy(validRandomPosition(120));
 planets.push(earth);
 
 earth.isClickable = true;
-earth.name = "earth";
+earth.name = "Earth";
 
 scene.add(earth);
 
@@ -313,7 +313,7 @@ saturn.position.copy(validRandomPosition(120));
 planets.push(saturn);
 
 saturn.isClickable = true;
-saturn.name = "saturn";
+saturn.name = "Saturn";
 
 // create an outlinepass specifically for saturn
 const saturnOutlinePass = new OutlinePass(new THREE.Vector2(window.innerWidth, window.innerHeight), scene, camera);
@@ -341,7 +341,7 @@ jupiter.position.copy(validRandomPosition(120));
 planets.push(jupiter);
 
 jupiter.isClickable = true;
-jupiter.name = "jupiter";
+jupiter.name = "Jupiter";
 
 // create an outlinepass specifically for jupiter
 const jupiterOutlinePass = new OutlinePass(new THREE.Vector2(window.innerWidth, window.innerHeight), scene, camera);
@@ -369,7 +369,7 @@ uranus.position.copy(validRandomPosition(120));
 planets.push(uranus);
 
 uranus.isClickable = true;
-uranus.name = "uranus";
+uranus.name = "Uranus";
 
 // create an outlinepass specifically for uranus
 const uranusOutlinePass = new OutlinePass(new THREE.Vector2(window.innerWidth, window.innerHeight), scene, camera);
@@ -381,7 +381,7 @@ uranusOutlinePass.edgeStrength = 3;
 uranusOutlinePass.edgeGlow = 1;
 uranusOutlinePass.edgeThickness = 5.0;
 uranusOutlinePass.pulsePeriod = 0;
-uranusOutlinePass.visibleEdgeColor.set('#f7a51a'); // TODO: change saturn's outline color
+uranusOutlinePass.visibleEdgeColor.set('#f7a51a'); // TODO: change uranus's outline color
 uranusOutlinePass.hiddenEdgeColor.set('#000000');
 
 scene.add(uranus);
@@ -397,7 +397,7 @@ neptune.position.copy(validRandomPosition(120));
 planets.push(neptune);
 
 neptune.isClickable = true;
-neptune.name = "neptune";
+neptune.name = "Neptune";
 
 // create an outlinepass specifically for neptune
 const neptuneOutlinePass = new OutlinePass(new THREE.Vector2(window.innerWidth, window.innerHeight), scene, camera);
@@ -409,7 +409,7 @@ neptuneOutlinePass.edgeStrength = 2;
 neptuneOutlinePass.edgeGlow = 1;
 neptuneOutlinePass.edgeThickness = 5.0;
 neptuneOutlinePass.pulsePeriod = 0;
-neptuneOutlinePass.visibleEdgeColor.set('#f7a51a'); // TODO: change saturn's outline color
+neptuneOutlinePass.visibleEdgeColor.set('#f7a51a'); // TODO: change neptune's outline color
 neptuneOutlinePass.hiddenEdgeColor.set('#000000');
 
 scene.add(neptune);
