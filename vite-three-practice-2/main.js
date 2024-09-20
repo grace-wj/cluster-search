@@ -15,7 +15,7 @@ const planetInfo = { // sidebar info for each planet
   "Saturn": "Saturn, famous for its stunning rings made of ice and rock, is a gas giant with a unique claim to fame: it's less dense than water, meaning it could float if you had a big enough ocean. Its rings are not solid, but are made up of billions of particles, some as small as dust, others as large as mountains. Saturn's largest moon, Titan, has a thick atmosphere and lakes of liquid methane, making it a prime target for exploration.",
   "Uranus": "Uranus spins on its side, almost perpendicular to its orbit, likely due to a massive collision in its past. Its pale blue color comes from methane gas in its atmosphere, which filters out red light and reflects blue. Discovered in 1781 by William Herschel, Uranus was the first planet to be found with the aid of a telescope, and it also has a faint ring system similar to Saturn’s.",
   "Neptune": "Neptune, known for its deep blue color, boasts the most powerful winds in the solar system, with speeds that can reach up to 1,500 miles per hour. Like Uranus, its blue hue is caused by methane gas in its atmosphere, though its storms are far more intense. Neptune's largest moon, Triton, is unique for its retrograde orbit, which means it moves in the opposite direction of the planet's rotation, a clue that it may have been captured from the Kuiper Belt.",
-  "Sun": "The sun is the sun." // TODO: add sun sidebar info
+  "Sun": "The sun is a massive ball of hot plasma, making up about 99.86% of the solar system’s total mass. It generates energy through nuclear fusion, converting hydrogen into helium at its core, which produces the sunlight we see. Interestingly, the light from the sun takes about eight minutes to reach Earth, meaning we see it as it was in the past!" 
 }
 const planets = []; // keep track of planet objects to prevent placement overlaps
 const minDistance = 25; // set a minimum distance between objects
@@ -93,7 +93,7 @@ function onDoubleClick(event) {
   }
 }
 /* to close sidebar, onclick listener/handler on exit-btn */
-document.getElementById('exit-btn').addEventListener('click', () => { // TODO: figure out why this breaks when sidebar HTML is updated
+document.getElementById('exit-btn').addEventListener('click', () => {
   closeSidebar();
   animateCameraToStart();
 });
@@ -345,7 +345,7 @@ saturnOutlinePass.edgeStrength = 3;
 saturnOutlinePass.edgeGlow = 1;
 saturnOutlinePass.edgeThickness = 5.0;
 saturnOutlinePass.pulsePeriod = 0;
-saturnOutlinePass.visibleEdgeColor.set('#f7a51a'); // TODO: change saturn's outline color
+saturnOutlinePass.visibleEdgeColor.set('#eedc82'); // TODO: change saturn's outline color
 saturnOutlinePass.hiddenEdgeColor.set('#000000');
 
 scene.add(saturn);
@@ -373,7 +373,7 @@ jupiterOutlinePass.edgeStrength = 3;
 jupiterOutlinePass.edgeGlow = 1;
 jupiterOutlinePass.edgeThickness = 5.0;
 jupiterOutlinePass.pulsePeriod = 0;
-jupiterOutlinePass.visibleEdgeColor.set('#f7a51a'); // TODO: change jupiter's outline color
+jupiterOutlinePass.visibleEdgeColor.set('#e49b0f'); // TODO: change jupiter's outline color
 jupiterOutlinePass.hiddenEdgeColor.set('#000000');
 
 scene.add(jupiter);
@@ -401,7 +401,7 @@ uranusOutlinePass.edgeStrength = 3;
 uranusOutlinePass.edgeGlow = 1;
 uranusOutlinePass.edgeThickness = 5.0;
 uranusOutlinePass.pulsePeriod = 0;
-uranusOutlinePass.visibleEdgeColor.set('#f7a51a'); // TODO: change uranus's outline color
+uranusOutlinePass.visibleEdgeColor.set('#add8e6'); // TODO: change uranus's outline color
 uranusOutlinePass.hiddenEdgeColor.set('#000000');
 
 scene.add(uranus);
@@ -429,7 +429,7 @@ neptuneOutlinePass.edgeStrength = 2;
 neptuneOutlinePass.edgeGlow = 1;
 neptuneOutlinePass.edgeThickness = 5.0;
 neptuneOutlinePass.pulsePeriod = 0;
-neptuneOutlinePass.visibleEdgeColor.set('#f7a51a'); // TODO: change neptune's outline color
+neptuneOutlinePass.visibleEdgeColor.set('#0047ab'); // TODO: change neptune's outline color
 neptuneOutlinePass.hiddenEdgeColor.set('#000000');
 
 scene.add(neptune);

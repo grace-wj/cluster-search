@@ -14,6 +14,7 @@ body {
   font-style: normal;
 }
 #sidebar {
+  font-family: "Orbitron";
   position: fixed;
   left: 0;
   top: 0;
@@ -33,6 +34,7 @@ body {
   display: none;
 }
 #sidebar.show {
+  font-family: "Orbitron";
   position: fixed;
   left: 0;
   top: 0;
