@@ -322,34 +322,6 @@ mars.name = "Mars";
 
 scene.add(mars);
 
-/* add saturn */
-const saturnGeo = new THREE.SphereGeometry(7, 32, 16);
-const saturnTex = new THREE.TextureLoader().load('saturn.jpg');
-saturnTex.colorSpace = THREE.SRGBColorSpace;
-const saturnMat = new THREE.MeshBasicMaterial({map: saturnTex})
-const saturn = new THREE.Mesh(saturnGeo, saturnMat);
-
-saturn.position.copy(validRandPosition(70, 84));
-planets.push(saturn);
-
-saturn.isClickable = true;
-saturn.name = "Saturn";
-
-// create an outlinepass specifically for saturn
-const saturnOutlinePass = new OutlinePass(new THREE.Vector2(window.innerWidth, window.innerHeight), scene, camera);
-composer.addPass(saturnOutlinePass);
-saturnOutlinePass.selectedObjects = [saturn];
-
-// set outline style for saturn
-saturnOutlinePass.edgeStrength = 3;
-saturnOutlinePass.edgeGlow = 1;
-saturnOutlinePass.edgeThickness = 5.0;
-saturnOutlinePass.pulsePeriod = 0;
-saturnOutlinePass.visibleEdgeColor.set('#eedc82'); // TODO: change saturn's outline color
-saturnOutlinePass.hiddenEdgeColor.set('#000000');
-
-scene.add(saturn);
-
 /* add jupiter */
 const jupiterGeo = new THREE.SphereGeometry(8, 32, 16);
 const jupiterTex = new THREE.TextureLoader().load('jupiter.jpeg');
@@ -357,7 +329,7 @@ jupiterTex.colorSpace = THREE.SRGBColorSpace;
 const jupiterMat = new THREE.MeshBasicMaterial({map: jupiterTex})
 const jupiter = new THREE.Mesh(jupiterGeo, jupiterMat);
 
-jupiter.position.copy(validRandPosition(84, 98));
+jupiter.position.copy(validRandPosition(70, 84));
 planets.push(jupiter);
 
 jupiter.isClickable = true;
@@ -373,10 +345,38 @@ jupiterOutlinePass.edgeStrength = 3;
 jupiterOutlinePass.edgeGlow = 1;
 jupiterOutlinePass.edgeThickness = 5.0;
 jupiterOutlinePass.pulsePeriod = 0;
-jupiterOutlinePass.visibleEdgeColor.set('#e49b0f'); // TODO: change jupiter's outline color
+jupiterOutlinePass.visibleEdgeColor.set('#e49b0f');
 jupiterOutlinePass.hiddenEdgeColor.set('#000000');
 
 scene.add(jupiter);
+
+/* add saturn */
+const saturnGeo = new THREE.SphereGeometry(7, 32, 16);
+const saturnTex = new THREE.TextureLoader().load('saturn.jpg');
+saturnTex.colorSpace = THREE.SRGBColorSpace;
+const saturnMat = new THREE.MeshBasicMaterial({map: saturnTex})
+const saturn = new THREE.Mesh(saturnGeo, saturnMat);
+
+saturn.position.copy(validRandPosition(84, 98));
+planets.push(saturn);
+
+saturn.isClickable = true;
+saturn.name = "Saturn";
+
+// create an outlinepass specifically for saturn
+const saturnOutlinePass = new OutlinePass(new THREE.Vector2(window.innerWidth, window.innerHeight), scene, camera);
+composer.addPass(saturnOutlinePass);
+saturnOutlinePass.selectedObjects = [saturn];
+
+// set outline style for saturn
+saturnOutlinePass.edgeStrength = 3;
+saturnOutlinePass.edgeGlow = 1;
+saturnOutlinePass.edgeThickness = 5.0;
+saturnOutlinePass.pulsePeriod = 0;
+saturnOutlinePass.visibleEdgeColor.set('#eedc82');
+saturnOutlinePass.hiddenEdgeColor.set('#000000');
+
+scene.add(saturn);
 
 /* add uranus */
 const uranusGeo = new THREE.SphereGeometry(6, 32, 16);
@@ -401,7 +401,7 @@ uranusOutlinePass.edgeStrength = 3;
 uranusOutlinePass.edgeGlow = 1;
 uranusOutlinePass.edgeThickness = 5.0;
 uranusOutlinePass.pulsePeriod = 0;
-uranusOutlinePass.visibleEdgeColor.set('#add8e6'); // TODO: change uranus's outline color
+uranusOutlinePass.visibleEdgeColor.set('#add8e6'); 
 uranusOutlinePass.hiddenEdgeColor.set('#000000');
 
 scene.add(uranus);
@@ -426,10 +426,10 @@ neptuneOutlinePass.selectedObjects = [neptune];
 
 // set outline style for neptune
 neptuneOutlinePass.edgeStrength = 2;
-neptuneOutlinePass.edgeGlow = 1;
+neptuneOutlinePass.edgeGlow = 2;
 neptuneOutlinePass.edgeThickness = 5.0;
 neptuneOutlinePass.pulsePeriod = 0;
-neptuneOutlinePass.visibleEdgeColor.set('#0047ab'); // TODO: change neptune's outline color
+neptuneOutlinePass.visibleEdgeColor.set('#0f3cab');
 neptuneOutlinePass.hiddenEdgeColor.set('#000000');
 
 scene.add(neptune);
@@ -473,15 +473,27 @@ controls.maxDistance = 150; // maximum zoom-out distance
 /* animate everything */
 function animate() {
   requestAnimationFrame(animate);
+  sun.rotation.y -= 0.002;
 
-  earth.rotation.x += 0.001;
+  mercury.rotation.y += 0.005;
+
+  venus.rotation.y -= 0.003;
+
   earth.rotation.y += 0.0025;
-  earth.rotation.z += 0.001;
+  earth.rotation.z += 0.0025;
 
-  sun.rotation.x -= 0.001;
+  mars.rotation.y += 0.003;
+  mars.rotation.z += 0.0025;
 
-  mars.rotation.x += 0.001;
-  mars.rotation.y += 0.0025;
+  jupiter.rotation.y += 0.004;
+
+  saturn.rotation.y += 0.001;
+  saturn.rotation.z += 0.003;
+
+  uranus.rotation.x -= 0.005;
+
+  neptune.rotation.y += 0.002;
+  neptune.rotation.z += 0.0025;
 
   composer.render(); // render using composer
   controls.update();
