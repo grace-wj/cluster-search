@@ -234,9 +234,9 @@ composer.addPass(sunOutlinePass);
 sunOutlinePass.selectedObjects = [sun];
 
 // set outline style for the sun
-sunOutlinePass.edgeStrength = 5;
+sunOutlinePass.edgeStrength = 6;
 sunOutlinePass.edgeGlow = 2;
-sunOutlinePass.edgeThickness = 10.0;
+sunOutlinePass.edgeThickness = 12.0;
 sunOutlinePass.pulsePeriod = 5;
 sunOutlinePass.visibleEdgeColor.set('#f7a51a');
 sunOutlinePass.hiddenEdgeColor.set('#000000');
@@ -315,6 +315,19 @@ planets.push(saturn);
 saturn.isClickable = true;
 saturn.name = "saturn";
 
+// create an outlinepass specifically for saturn
+const saturnOutlinePass = new OutlinePass(new THREE.Vector2(window.innerWidth, window.innerHeight), scene, camera);
+composer.addPass(saturnOutlinePass);
+saturnOutlinePass.selectedObjects = [saturn];
+
+// set outline style for saturn
+saturnOutlinePass.edgeStrength = 3;
+saturnOutlinePass.edgeGlow = 1;
+saturnOutlinePass.edgeThickness = 5.0;
+saturnOutlinePass.pulsePeriod = 0;
+saturnOutlinePass.visibleEdgeColor.set('#f7a51a'); // TODO: change saturn's outline color
+saturnOutlinePass.hiddenEdgeColor.set('#000000');
+
 scene.add(saturn);
 
 /* add jupiter */
@@ -329,6 +342,19 @@ planets.push(jupiter);
 
 jupiter.isClickable = true;
 jupiter.name = "jupiter";
+
+// create an outlinepass specifically for jupiter
+const jupiterOutlinePass = new OutlinePass(new THREE.Vector2(window.innerWidth, window.innerHeight), scene, camera);
+composer.addPass(jupiterOutlinePass);
+jupiterOutlinePass.selectedObjects = [jupiter];
+
+// set outline style for jupiter
+jupiterOutlinePass.edgeStrength = 3;
+jupiterOutlinePass.edgeGlow = 1;
+jupiterOutlinePass.edgeThickness = 5.0;
+jupiterOutlinePass.pulsePeriod = 0;
+jupiterOutlinePass.visibleEdgeColor.set('#f7a51a'); // TODO: change jupiter's outline color
+jupiterOutlinePass.hiddenEdgeColor.set('#000000');
 
 scene.add(jupiter);
 
@@ -345,6 +371,19 @@ planets.push(uranus);
 uranus.isClickable = true;
 uranus.name = "uranus";
 
+// create an outlinepass specifically for uranus
+const uranusOutlinePass = new OutlinePass(new THREE.Vector2(window.innerWidth, window.innerHeight), scene, camera);
+composer.addPass(uranusOutlinePass);
+uranusOutlinePass.selectedObjects = [uranus];
+
+// set outline style for uranus
+uranusOutlinePass.edgeStrength = 3;
+uranusOutlinePass.edgeGlow = 1;
+uranusOutlinePass.edgeThickness = 5.0;
+uranusOutlinePass.pulsePeriod = 0;
+uranusOutlinePass.visibleEdgeColor.set('#f7a51a'); // TODO: change saturn's outline color
+uranusOutlinePass.hiddenEdgeColor.set('#000000');
+
 scene.add(uranus);
 
 /* add neptune */
@@ -359,6 +398,19 @@ planets.push(neptune);
 
 neptune.isClickable = true;
 neptune.name = "neptune";
+
+// create an outlinepass specifically for neptune
+const neptuneOutlinePass = new OutlinePass(new THREE.Vector2(window.innerWidth, window.innerHeight), scene, camera);
+composer.addPass(neptuneOutlinePass);
+neptuneOutlinePass.selectedObjects = [neptune];
+
+// set outline style for neptune
+neptuneOutlinePass.edgeStrength = 2;
+neptuneOutlinePass.edgeGlow = 1;
+neptuneOutlinePass.edgeThickness = 5.0;
+neptuneOutlinePass.pulsePeriod = 0;
+neptuneOutlinePass.visibleEdgeColor.set('#f7a51a'); // TODO: change saturn's outline color
+neptuneOutlinePass.hiddenEdgeColor.set('#000000');
 
 scene.add(neptune);
 
