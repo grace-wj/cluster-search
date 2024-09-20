@@ -18,7 +18,7 @@ const planetInfo = { // sidebar info for each planet
   "Sun": "The sun is the sun." // TODO: add sun sidebar info
 }
 const planets = []; // keep track of planet objects to prevent placement overlaps
-const minDistance = 50; // set a minimum distance between objects
+const minDistance = 1; // set a minimum distance between objects
 
 /* create scene, camera, and renderer */
 const scene = new THREE.Scene();
@@ -187,19 +187,50 @@ function animateCameraToPlanet(object) {
   });
 }
 
-/* function to generate a VALID random object position within range */
-function validRandomPosition(range) {
+/* function to generate a VALID random object position between rangestart and rangeend */
+function validRandPosition(rangeStart, rangeEnd) {
   let position;
   let validBool = false;
   while (!validBool) { // make sure the generated position is far enough from other objects
-    position = randomPosition(range);
+    position = randPositionClosed(rangeStart, rangeEnd);
     validBool = isValid(position);
   }
   return position;
 }
 /* function to generate a random object position within range */
-function randomPosition(range) {
-  const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(range));
+function randPositionOpen(range) {
+  // TODO: Implement with single line
+  x = THREE.MathUtils.randFloatSpread(range);
+  y = THREE.MathUtils.randFloatSpread(range);
+  z = THREE.MathUtils.randFloatSpread(range);
+  return new THREE.Vector3(x, y, z);
+}
+/* function to generate a random object position between rangestart and rangeend */
+function randPositionClosed(rangeStart, rangeEnd) {
+  let x;
+  let y;
+  let z;
+  let validX = false;
+  let validY = false;
+  let validZ = false;
+  while (!validX) {
+    x = THREE.MathUtils.randFloatSpread(rangeEnd);
+    if (Math.abs(x) > rangeStart) {
+      validX = true;
+    }
+  }
+  while (!validY) {
+    y = THREE.MathUtils.randFloatSpread(rangeEnd);
+    if (Math.abs(y) > rangeStart) {
+      validY = true;
+    }
+  }
+  while (!validZ) {
+    z = THREE.MathUtils.randFloatSpread(rangeEnd);
+    if (Math.abs(z) > rangeStart) {
+      validZ = true;
+    }
+  }  
   return new THREE.Vector3(x, y, z);
 }
 /* returns true if position is far enough away from other objects, false otherwise*/
@@ -254,7 +285,7 @@ mercuryTex.colorSpace = THREE.SRGBColorSpace;
 const mercuryMat = new THREE.MeshBasicMaterial({map: mercuryTex})
 const mercury = new THREE.Mesh(mercuryGeo, mercuryMat);
 
-mercury.position.copy(validRandomPosition(120));
+mercury.position.copy(validRandPosition(14, 28));
 planets.push(mercury);
 
 mercury.isClickable = true;
@@ -269,7 +300,7 @@ venusTex.colorSpace = THREE.SRGBColorSpace;
 const venusMat = new THREE.MeshBasicMaterial({map: venusTex})
 const venus = new THREE.Mesh(venusGeo, venusMat);
 
-venus.position.copy(validRandomPosition(120));
+venus.position.copy(validRandPosition(28, 42));
 planets.push(venus);
 
 venus.isClickable = true;
@@ -284,7 +315,7 @@ earthTex.colorSpace = THREE.SRGBColorSpace;
 const earthMat = new THREE.MeshBasicMaterial({map: earthTex})
 const earth = new THREE.Mesh(earthGeo, earthMat);
 
-earth.position.copy(validRandomPosition(120));
+earth.position.copy(validRandPosition(42, 56));
 planets.push(earth);
 
 earth.isClickable = true;
@@ -299,7 +330,7 @@ marsTex.colorSpace = THREE.SRGBColorSpace;
 const marsMat = new THREE.MeshBasicMaterial({map: marsTex})
 const mars = new THREE.Mesh(marsGeo, marsMat);
 
-mars.position.copy(validRandomPosition(120));
+mars.position.copy(validRandPosition(56, 70));
 planets.push(mars);
 
 mars.isClickable = true;
@@ -314,7 +345,7 @@ saturnTex.colorSpace = THREE.SRGBColorSpace;
 const saturnMat = new THREE.MeshBasicMaterial({map: saturnTex})
 const saturn = new THREE.Mesh(saturnGeo, saturnMat);
 
-saturn.position.copy(validRandomPosition(120));
+saturn.position.copy(validRandPosition(70, 84));
 planets.push(saturn);
 
 saturn.isClickable = true;
@@ -342,7 +373,7 @@ jupiterTex.colorSpace = THREE.SRGBColorSpace;
 const jupiterMat = new THREE.MeshBasicMaterial({map: jupiterTex})
 const jupiter = new THREE.Mesh(jupiterGeo, jupiterMat);
 
-jupiter.position.copy(validRandomPosition(120));
+jupiter.position.copy(validRandPosition(84, 98));
 planets.push(jupiter);
 
 jupiter.isClickable = true;
@@ -370,7 +401,7 @@ uranusTex.colorSpace = THREE.SRGBColorSpace;
 const uranusMat = new THREE.MeshBasicMaterial({map: uranusTex})
 const uranus = new THREE.Mesh(uranusGeo, uranusMat);
 
-uranus.position.copy(validRandomPosition(120));
+uranus.position.copy(validRandPosition(98, 112));
 planets.push(uranus);
 
 uranus.isClickable = true;
@@ -398,7 +429,7 @@ neptuneTex.colorSpace = THREE.SRGBColorSpace;
 const neptuneMat = new THREE.MeshBasicMaterial({map: neptuneTex})
 const neptune = new THREE.Mesh(neptuneGeo, neptuneMat);
 
-neptune.position.copy(validRandomPosition(120));
+neptune.position.copy(validRandPosition(112, 126));
 planets.push(neptune);
 
 neptune.isClickable = true;
@@ -425,7 +456,7 @@ function addStar() {
   const starMat = new THREE.MeshBasicMaterial({color: 0xFFFFFF, wireframe: true});
   const star = new THREE.Mesh(starGeo, starMat);
 
-  star.position.copy(randomPosition(225));
+  star.position.copy(randPositionOpen(225));
   
   star.isClickable = false; // mark as non-interactive
 
@@ -439,7 +470,7 @@ function addAsteroid() {
   const asteroidMat = new THREE.MeshBasicMaterial({map: asteroidTex})
   const asteroid = new THREE.Mesh(asteroidGeo, asteroidMat);
 
-  asteroid.position.copy(randomPosition(225));
+  asteroid.position.copy(randPositionOpen(225));
 
   asteroid.isClickable = false;
 
