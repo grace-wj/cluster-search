@@ -1,5 +1,5 @@
 # Run Instructions
-cd vite-three-practice-2\
+cd vite-cluster-search\
 make sure node and npm are installed\
 npm install\
 npm run dev
